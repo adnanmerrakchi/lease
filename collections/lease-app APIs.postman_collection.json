@@ -1,0 +1,72 @@
+{
+	"info": {
+		"_postman_id": "952b8475-8cef-4afa-920a-2c97c6b75bae",
+		"name": "lease-app APIs",
+		"description": "this is a collection which is made in purpose to test the normal scenario of two APIs lease and return.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4445098"
+	},
+	"item": [
+		{
+			"name": "succes lease",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"carId\": \"{{carId}}\",\n  \"customerId\": \"{{customerId}}\",\n  \"startAt\": \"{{startAt}}\",\n  \"expectedReturnAt\": \"{{expectedReturnAt}}\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/leases",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"leases"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "success return",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"returnedAt\": \"{{returnedAt}}\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/leases/{{leaseId}}/return",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"leases",
+						"{{leaseId}}",
+						"return"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
