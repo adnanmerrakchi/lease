@@ -22,13 +22,13 @@ public final class JpaMappers {
     }
 
     public static Lease toDomain(LeaseEntity e) {
-        var lease = Lease.open( new LeaseId( e.getId()),
+        var lease = Lease.startLease( new LeaseId( e.getId()),
                                 new CarId(e.getCarId()),
                                 new CustomerId(e.getCustomerId()),
                                 e.getStartAt(),
                                 e.getExpectedReturnAt());
         if ("CLOSED".equals(e.getStatus()) && e.getReturnedAt()!=null) {
-            lease.close(e.getReturnedAt());
+            lease.closeLease(e.getReturnedAt());
         }
         return lease;
     }

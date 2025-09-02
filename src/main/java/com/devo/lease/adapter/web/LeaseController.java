@@ -29,7 +29,7 @@ public class LeaseController {
 
     @PostMapping
     public ResponseEntity<LeaseResponse> lease(@RequestBody @Valid LeaseCarRequest req) {
-        var dto = leaseCarUseCase.handle(new LeaseCarCommand(   req.carId(),
+        var dto = leaseCarUseCase.leaseCar(new LeaseCarCommand(   req.carId(),
                                                                 req.customerId(),
                                                                 req.startAt(),
                                                                 req.expectedReturnAt()));
@@ -43,7 +43,7 @@ public class LeaseController {
     @PostMapping("/{leaseId}/return")
     public ResponseEntity<ReturnResponse> returnCar(    @PathVariable UUID leaseId,
                                                         @RequestBody @Valid ReturnCarRequest req) {
-        var dto = returnCarUseCase.handle(new ReturnCarCommand(leaseId, req.returnedAt()));
+        var dto = returnCarUseCase.returnCar(new ReturnCarCommand(leaseId, req.returnedAt()));
         return ResponseEntity.ok(   new ReturnResponse( dto.leaseId(),
                                                         dto.carId(),
                                                         dto.customerId(),

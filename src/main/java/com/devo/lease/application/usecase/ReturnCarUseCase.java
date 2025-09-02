@@ -3,7 +3,6 @@ package com.devo.lease.application.usecase;
 import com.devo.lease.application.command.ReturnCarCommand;
 import com.devo.lease.application.dto.ReturnReceiptDTO;
 import com.devo.lease.domain.model.Lease;
-import com.devo.lease.domain.model.events.CarReturned;
 import com.devo.lease.domain.model.value.LeaseId;
 import com.devo.lease.domain.ports.CarRepository;
 import com.devo.lease.domain.ports.LeaseRepository;
@@ -24,7 +23,7 @@ public class ReturnCarUseCase {
     }
 
     @Transactional
-    public ReturnReceiptDTO handle(ReturnCarCommand returnCarCommand) {
+    public ReturnReceiptDTO returnCar(ReturnCarCommand returnCarCommand) {
         var lease = leaseRepo.findById(new LeaseId(returnCarCommand.leaseId()))
                             .orElseThrow(() -> new IllegalArgumentException("Lease not found"));
         if (lease.status() == Lease.Status.CLOSED)
@@ -32,7 +31,7 @@ public class ReturnCarUseCase {
 
         var car = carRepo.findById(lease.carId()).orElseThrow(() -> new IllegalStateException("Car missing"));
 
-        lease.close(returnCarCommand.returnedAt());
+        lease.closeLease(returnCarCommand.returnedAt());
         leaseRepo.save(lease);
 
         return new ReturnReceiptDTO(lease.id().value(), lease.carId().value(), lease.customerId().value(), returnCarCommand.returnedAt(), car.rentPrice());

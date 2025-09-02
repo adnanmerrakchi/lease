@@ -28,14 +28,14 @@ public final class Lease {
         this.status = Status.ACTIVE;
     }
 
-    public static Lease open(LeaseId id, CarId carId, CustomerId customerId,
-                             LocalDateTime startAt, LocalDateTime expectedReturnAt) {
+    public static Lease startLease(LeaseId id, CarId carId, CustomerId customerId,
+                                   LocalDateTime startAt, LocalDateTime expectedReturnAt) {
         if (!startAt.isBefore(expectedReturnAt))
             throw new IllegalArgumentException("start must be before expected return");
         return new Lease(id, carId, customerId, startAt, expectedReturnAt);
     }
 
-    public void close(LocalDateTime actualReturnAt) {
+    public void closeLease(LocalDateTime actualReturnAt) {
         if (status == Status.CLOSED) throw new IllegalStateException("Already closed");
         if (actualReturnAt.isBefore(startAt)) throw new IllegalArgumentException("return before start");
         this.returnedAt = actualReturnAt;

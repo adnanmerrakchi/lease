@@ -31,13 +31,13 @@ public class LeaseCarUseCase {
     }
 
     @Transactional
-    public LeaseReceiptDTO handle(LeaseCarCommand leaseCarCommand) {
+    public LeaseReceiptDTO leaseCar(LeaseCarCommand leaseCarCommand) {
         var carId = new CarId(leaseCarCommand.carId());
         var customerId = new CustomerId(leaseCarCommand.customerId());
         var car = carRepo.findById(carId).orElseThrow(() -> new IllegalArgumentException("Car not found"));
         customerRepo.findById(customerId).orElseThrow(() -> new IllegalArgumentException("Customer not found"));
 
-        var lease = Lease.open( new LeaseId(UUID.randomUUID()),
+        var lease = Lease.startLease( new LeaseId(UUID.randomUUID()),
                                 carId,
                                 customerId,
                                 leaseCarCommand.startAt(),
