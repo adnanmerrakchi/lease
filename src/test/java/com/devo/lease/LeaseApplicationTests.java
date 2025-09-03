@@ -1,13 +1,11 @@
 package com.devo.lease;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.platform.suite.api.IncludeClassNamePatterns;
+import org.junit.platform.suite.api.SelectPackages;
+import org.junit.platform.suite.api.Suite;
 
-@SpringBootTest
-class LeaseApplicationTests {
-
-	@Test
-	void contextLoads() {
-	}
-
+@Suite
+@SelectPackages({"com.devo.lease"})
+@IncludeClassNamePatterns({".*Test$", ".*Tests$", ".*TestCase$"})
+public class LeaseApplicationTests {
 }

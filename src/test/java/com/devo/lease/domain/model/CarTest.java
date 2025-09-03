@@ -32,7 +32,7 @@ class CarTest {
     @DisplayName("[FAILURE] throws when VIN is null")
     void throwsOnNullVin() {
         assertThrows(IllegalArgumentException.class, () ->
-                new Car(newCarId(), null, "Ford", "Fiesta", 2019, 35.0)
+                new Car(newCarId(), null, "Ford", "Fiesta", 2019, 350.0)
         );
     }
 

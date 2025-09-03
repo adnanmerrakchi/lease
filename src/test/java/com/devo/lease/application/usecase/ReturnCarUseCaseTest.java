@@ -63,6 +63,7 @@ class ReturnCarUseCaseTest {
         assertEquals(customerId.value(), out.customerId());
         assertEquals(returnedAt, out.returnedAt());
         assertEquals(350.0, out.rentPrice());
+//        assertEquals(30.0, out.rentPrice());
 
     }
 
